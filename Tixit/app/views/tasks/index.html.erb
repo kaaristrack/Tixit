@@ -1,8 +1,68 @@
 <% if user_signed_in? %>
-  <% @tasks.each do |task| %>
-  <h2><%= link_to task.title, task %></h2>
-  <p><%= task.description %></p>
+  <div class="col-md-10 col-md-offset-1">
+    <% @tasks.each do |task| %>
+      <div class="index-wrapper">
+        <% if task.completed? %>
+          <div class="row item">
+
+            <div class="col-md-1">
+              <p><%= link_to root_path, method: :get do %></p>
+                <i class="fa fa-flag-checkered fa-lg"></i>
+              <% end %>
+            </div>
+
+            <div class="col-md-1">
+              <p><%= link_to undo_complete_task_path(task), method: :patch do %></p>
+                <i class="fa fa-redo fa-lg"></i>
+              <% end %>
+            </div>
+
+            <div class="col-md-1">
+              <p><%= link_to task, method: :delete, data: { confirm: "Delete this task?" } do %></p>
+                <i class="fa fa-trash fa-lg"></i>
+              <% end %>
+            </div>
+
+            <div class="col-md-9">
+              <h2 style="opacity: 0.5;" class="item-title"><strike><%= task.title %></strike></h2>
+              <p style="opacity: 0.5;" class="item-sub-title item-desc"><strike><%= truncate(task.description, length: 75) %></strike></p>
+              <br />
+              <p style="opacity: 0.5;" class="time-created-at item-sub-title">Completed <%= time_ago_in_words(task.completed_at) %> ago!</p>
+            </div>
+          </div>
+
+        <% else %>
+
+          <div class="row item">
+            <div class="col-md-1">
+              <p><%= link_to complete_task_path(task), method: :patch do %></p>
+                <i class="fa fa-check fa-lg"></i>
+              <% end %>
+            </div>
+
+            <div class="col-md-1">
+              <p><%= link_to edit_task_path(task), method: :get do %></p>
+                <i class="fa fa-edit fa-lg"></i>
+              <% end %>
+            </div>
+
+            <div class="col-md-1">
+              <p><%= link_to task, method: :delete, data: { confirm: "Delete this task?" } do %></p>
+                <i class="fa fa-trash fa-lg"></i>
+              <% end %>
+            </div>
+
+            <div class="col-md-9">
+              <h2 style="opacity: 0.5;" class="item-title"><%= link_to task.title, task %></h2>
+              <p style="opacity: 0.5;" class="item-sub-title item-desc"><%= truncate(task.description, length: 75) %></p>
+              <br />
+              <p style="opacity: 0.5;" class="time-created-at item-sub-title">Logged <%= time_ago_in_words(task.created_at) %> ago!</p>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <%= render 'welcome_page' %>
   <% end %>
-<% else %>
-  <%= render 'welcome_page' %>
-<% end %>
