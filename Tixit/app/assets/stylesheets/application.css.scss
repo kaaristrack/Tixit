@@ -23,7 +23,7 @@
 
  @mixin nav_link_hover {
  	transition: 0.4s;
- 	color: lighten(#222, 50%);
+ 	color: #FFC0CB;
  	text-decoration: none;
  }
 
@@ -31,11 +31,11 @@
 
  body {
  	font-family: 'Lato', sans-serif;
- 	background-color: #f9e8d4;
+ 	background-color: #E9E9E9;
  }
 
  a {
- 	color: darken(#e7e7e7, 70%);
+ 	color: #FF1493;
  }
 
  .jumbotron {
